@@ -11,14 +11,17 @@ export class PixiApp extends Application {
     public async begin(){
         await this.init({
             resizeTo:window, 
-            background:'#0e1111'})
+            background:'#0e1111'});
+        
+        document.body.appendChild(this.canvas);
+        
+        this.stage.addChild(this.game);
 
-        this.stage.addChild(this.game)
+        await this.game.load();
+        
         this.game.start()
 
-        //if assest load 
         
-        document.body.appendChild(this.canvas)
     }
 
     
