@@ -1,5 +1,6 @@
-import { Container, Graphics, Text } from "pixi.js";
+import { Assets, Container, Graphics, Text, TilingSprite } from "pixi.js";
 import { centerObjects } from "../utils/misc";
+import AssetLoader from "../core/AssetLoader";
 
 
 export class Game extends Container {
@@ -24,13 +25,24 @@ export class Game extends Container {
         centerObjects(text)
         text.anchor.set(0.5)
 
+        const assestLoader = new AssetLoader()
         this.addChild(bg, text);
-
+        await assestLoader.loadAssets()
     }
 
     public start(){
-        
+        this.removeChildren()
 
+        const tillingSprite = new TilingSprite({
+            texture: Assets.get('tiles'),
+            width: window.innerWidth * 0.9,
+            height: 600,
+            tileScale:{ x: 1.5, y: 1.5 }
+        })
+        centerObjects(tillingSprite)
+        tillingSprite.anchor.set(0.5)
+
+        this.addChild(tillingSprite)
     }
 
     
