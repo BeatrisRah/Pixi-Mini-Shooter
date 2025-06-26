@@ -14,7 +14,7 @@ export default class AssetLoader {
         this.manifest = this.generateManifest()
     }
 
-    public async loadAssets() {
+    public async loadAssets() {        
         Assets.addBundle('default', this.manifest);
         await Assets.loadBundle('default');
     }
@@ -38,8 +38,9 @@ export default class AssetLoader {
             }
 
             const { category, name, ext } = match.groups;
+            
 
-            if (category === "spritesheets" && ext !== "json") {
+            if (category === "spritesheets" && ext !== "json") {                
                 return;
             }
 
