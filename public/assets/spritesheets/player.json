@@ -1,6 +1,6 @@
 {
     "frames": {
-        "walk1": {
+        "walk2": {
             "frame": {
                 "x": 36,
                 "y": 4,
@@ -20,7 +20,7 @@
                 "h": 24
             }
         },
-        "walk2": {
+        "walk3": {
             "frame": {
                 "x": 68,
                 "y": 4,
@@ -40,7 +40,7 @@
                 "h": 24
             }
         },
-        "walk3": {
+        "walk8": {
             "frame": {
                 "x": 228,
                 "y": 4,
@@ -60,7 +60,7 @@
                 "h": 24
             }
         },
-        "walk4": {
+        "walk9": {
             "frame": {
                 "x": 260,
                 "y": 4,
@@ -80,7 +80,7 @@
                 "h": 24
             }
         },
-        "walk5": {
+        "walk1": {
             "frame": {
                 "x": 4,
                 "y": 5,
@@ -100,7 +100,7 @@
                 "h": 24
             }
         },
-        "walk6": {
+        "walk7": {
             "frame": {
                 "x": 196,
                 "y": 5,
@@ -120,7 +120,7 @@
                 "h": 24
             }
         },
-        "walk7": {
+        "walk4": {
             "frame": {
                 "x": 100,
                 "y": 6,
@@ -140,7 +140,7 @@
                 "h": 24
             }
         },
-        "walk8": {
+        "walk10": {
             "frame": {
                 "x": 292,
                 "y": 6,
@@ -160,7 +160,7 @@
                 "h": 24
             }
         },
-        "walk9": {
+        "walk5": {
             "frame": {
                 "x": 131,
                 "y": 8,
@@ -180,9 +180,49 @@
                 "h": 24
             }
         },
-        "walk10": {
+        "walk6": {
             "frame": {
                 "x": 163,
+                "y": 8,
+                "w": 25,
+                "h": 24
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 25,
+                "h": 24
+            },
+            "sourceSize": {
+                "w": 25,
+                "h": 24
+            }
+        },
+        "walk11": {
+            "frame": {
+                "x": 323,
+                "y": 8,
+                "w": 25,
+                "h": 24
+            },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {
+                "x": 0,
+                "y": 0,
+                "w": 25,
+                "h": 24
+            },
+            "sourceSize": {
+                "w": 25,
+                "h": 24
+            }
+        },
+        "walk12": {
+            "frame": {
+                "x": 355,
                 "y": 8,
                 "w": 25,
                 "h": 24
@@ -440,7 +480,9 @@
             "walk7",
             "walk8",
             "walk9",
-            "walk10"
+            "walk10",
+            "walk11",
+            "walk12"
         ],
         "idle": [
             "idle1",
