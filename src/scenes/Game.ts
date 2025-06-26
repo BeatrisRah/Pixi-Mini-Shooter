@@ -5,10 +5,9 @@ import { Player } from "../objects/PLayer";
 
 
 export class Game extends Container {
-
+    private player!: Player
     constructor(){
         super();
-
     }
 
     public async load(){
@@ -43,9 +42,13 @@ export class Game extends Container {
         centerObjects(tillingSprite)
         tillingSprite.anchor.set(0.5)
 
-        const player = new Player()
+        this.player = new Player()
 
-        this.addChild(tillingSprite, player)
+        this.addChild(tillingSprite, this.player)
+    }
+
+    public update(){
+        this.player.move()
     }
 
     

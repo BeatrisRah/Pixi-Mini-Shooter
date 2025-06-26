@@ -21,7 +21,7 @@ export class PixiApp extends Application {
         
         this.game.start()
 
-        
+        this.ticker.add(() => this.game.update())
     }
 
     
