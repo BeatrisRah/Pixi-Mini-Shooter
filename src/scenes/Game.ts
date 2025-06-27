@@ -1,34 +1,26 @@
-import { Assets, Container, Graphics, Text, TilingSprite } from "pixi.js";
-import { centerObjects } from "../utils/misc";
+import { Assets, Container, TilingSprite } from "pixi.js";
+import { myCenter } from "../utils/misc";
 import AssetLoader from "../core/AssetLoader";
 import { Player } from "../objects/PLayer";
 import { BoundsType } from "../utils/types";
+import { LoadingScene } from "./Loading";
 
 
 export class Game extends Container {
     private player!: Player
     private bounds!: BoundsType
+    private customW: number = window.innerWidth * 0.9
+    private customH: number = 600;
+
     constructor(){
         super();
     }
 
     public async load(){
-        const bg = new Graphics().rect(0, 0, window.innerWidth, window.innerHeight).fill('#353935')
-        const text = new Text({ 
-            text: "Loading...", 
-            style:{
-                fontFamily: "Verdana",
-                fontSize: 50,
-                fill: "white",
-            }
-        });
-        text.resolution = 2;
-
-        centerObjects(text)
-        text.anchor.set(0.5)
-
+        const LoadingSceene = new LoadingScene()
         const assestLoader = new AssetLoader()
-        this.addChild(bg, text);
+        
+        this.addChild(LoadingSceene)
         await assestLoader.loadAssets()
     }
 
@@ -37,18 +29,15 @@ export class Game extends Container {
 
         const tillingSprite = new TilingSprite({
             texture: Assets.get('tiles'),
-            width: window.innerWidth * 0.9,
-            height: 600,
+            width: this.customW,
+            height: this.customH,
             tileScale:{ x: 1.5, y: 1.5 }
         })
-
-        this.x = (window.innerWidth - tillingSprite.width) / 2
-        this.y = (window.innerHeight - tillingSprite.height) / 2
+        this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
 
         this.player = new Player()
 
-        this.player.x = (tillingSprite.width - this.player.width) / 2
-        this.player.y = (tillingSprite.height - this.player.height) / 2
+        myCenter(this.player, tillingSprite)
 
         this.bounds = {
             x: 0,

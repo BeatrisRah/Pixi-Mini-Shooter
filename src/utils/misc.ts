@@ -13,3 +13,14 @@ export function centerObjects(...toCenter: Container[]) {
 
     toCenter.forEach(center);
 }
+
+
+export function myCenter(obj: Container, otherCont?: Container){
+    if (otherCont){
+        obj.x = (otherCont.width - obj.width) / 2
+        obj.y = (otherCont.height - obj.height) / 2
+    } else{
+        obj.x = (window.innerWidth - obj.width) / 2;
+        obj.y = (window.innerHeight - obj.height) / 2;
+    }
+}
