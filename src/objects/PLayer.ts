@@ -1,8 +1,9 @@
 import { AnimatedSprite, Assets, Container, Spritesheet } from "pixi.js";
-import { centerObjects } from "../utils/misc";
 import { Keyboard } from "../core/Keyboard";
+import { BoundsType } from "../utils/types";
 
 type PlayerState = 'walk' | 'idle'
+
 
 export class Player extends Container {
     private anim: AnimatedSprite;
@@ -18,50 +19,55 @@ export class Player extends Container {
         this.playerData = Assets.get('player');
         this.anim = new AnimatedSprite(this.playerData.animations[this.currState])
         this.anim.scale.set(1.5)
-        centerObjects(this.anim)
+        this.anim.anchor.set(0.5)
         this.addChild(this.anim)
         this.anim.play()
         this.anim.animationSpeed = 0.2;
     }
 
-    public move() {
+    public move(bounds: BoundsType) {
         let moving = false;
-        let currSpeed = this.speed
+    let currSpeed = this.speed;
 
-        if (this.keyboard.isDown('Shift')){
-            currSpeed += 1.5;
-        }
+    if (this.keyboard.isDown('Shift')) {
+        currSpeed += 1.5;
+    }
 
-        if (this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d')) {
-            this.anim.scale.x = Math.abs(this.anim.scale.x);
-            this.x += currSpeed
-            moving = true;
-        }
+    if (this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d')) {
+        this.anim.scale.x = Math.abs(this.anim.scale.x);
+        this.x += currSpeed;
+        moving = true;
+    }
 
-        if (this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a')) {
-            this.anim.scale.x = -Math.abs(this.anim.scale.x);
-            this.x -= currSpeed;
-            moving = true;
-        }
+    if (this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a')) {
+        this.anim.scale.x = -Math.abs(this.anim.scale.x);
+        this.x -= currSpeed;
+        moving = true;
+    }
 
-        if (this.keyboard.isDown('ArrowUp') || this.keyboard.isDown('w')) {
-            this.y -= currSpeed;
-            moving = true;
-        }
+    if (this.keyboard.isDown('ArrowUp') || this.keyboard.isDown('w')) {
+        this.y -= currSpeed;
+        moving = true;
+    }
 
-        if (this.keyboard.isDown('ArrowDown') || this.keyboard.isDown('s')) {
-            this.y += currSpeed;
-            moving = true;
-        }
+    if (this.keyboard.isDown('ArrowDown') || this.keyboard.isDown('s')) {
+        this.y += currSpeed;
+        moving = true;
+    }
 
+    const halfW = this.width / 2;
+    const halfH = this.height / 2;
 
-        this.currState = moving ? 'walk' : 'idle';
+    this.x = Math.max(bounds.x + halfW, Math.min(this.x, bounds.x + bounds.width - halfW));
+    this.y = Math.max(bounds.y + halfH, Math.min(this.y, bounds.y + bounds.height - halfH));
 
-        if (this.currState !== this.prevState) {
-            this.anim.textures = this.playerData.animations[this.currState];
-            this.anim.play();
+    this.currState = moving ? 'walk' : 'idle';
 
-            this.prevState = this.currState;
-        }
+    if (this.currState !== this.prevState) {
+        this.anim.textures = this.playerData.animations[this.currState];
+        this.anim.play();
+
+        this.prevState = this.currState;
+    }
     }
 }

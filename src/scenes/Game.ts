@@ -2,10 +2,12 @@ import { Assets, Container, Graphics, Text, TilingSprite } from "pixi.js";
 import { centerObjects } from "../utils/misc";
 import AssetLoader from "../core/AssetLoader";
 import { Player } from "../objects/PLayer";
+import { BoundsType } from "../utils/types";
 
 
 export class Game extends Container {
     private player!: Player
+    private bounds!: BoundsType
     constructor(){
         super();
     }
@@ -39,16 +41,26 @@ export class Game extends Container {
             height: 600,
             tileScale:{ x: 1.5, y: 1.5 }
         })
-        centerObjects(tillingSprite)
-        tillingSprite.anchor.set(0.5)
+
+        this.x = (window.innerWidth - tillingSprite.width) / 2
+        this.y = (window.innerHeight - tillingSprite.height) / 2
 
         this.player = new Player()
 
+        this.player.x = (tillingSprite.width - this.player.width) / 2
+        this.player.y = (tillingSprite.height - this.player.height) / 2
+
+        this.bounds = {
+            x: 0,
+            y: 0,
+            width: tillingSprite.width,
+            height: tillingSprite.height,
+        }
         this.addChild(tillingSprite, this.player)
     }
 
     public update(){
-        this.player.move()
+        this.player.move(this.bounds)
     }
 
     
