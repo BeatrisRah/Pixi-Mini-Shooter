@@ -1,5 +1,6 @@
 import { Application } from "pixi.js";
 import { Game } from "../scenes/Game";
+import { initDevtools } from "@pixi/devtools";
 
 export class PixiApp extends Application {
     private game: Game
@@ -22,6 +23,8 @@ export class PixiApp extends Application {
         this.game.start()
 
         this.ticker.add(() => this.game.update())
+
+        initDevtools({app:this})
     }
 
     
