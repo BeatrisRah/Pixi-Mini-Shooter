@@ -4,14 +4,15 @@ import { Keyboard } from "../core/Keyboard";
 
 type PlayerState = 'walk' | 'idle'
 
-export class Player extends Container{
+export class Player extends Container {
     private anim: AnimatedSprite;
     private keyboard: Keyboard = new Keyboard()
     private currState: PlayerState = 'idle';
     private prevState: PlayerState = 'idle';
     private playerData: Spritesheet;
+    private speed: number = 3;
 
-    constructor(){
+    constructor() {
         super()
 
         this.playerData = Assets.get('player');
@@ -23,28 +24,44 @@ export class Player extends Container{
         this.anim.animationSpeed = 0.2;
     }
 
-    public move(){
+    public move() {
         let moving = false;
+        let currSpeed = this.speed
 
-        if (this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d')){
-            this.anim.scale.x = Math.abs(this.anim.scale.x); 
-            this.x += 2
+        if (this.keyboard.isDown('Shift')){
+            currSpeed += 1.5;
+        }
+
+        if (this.keyboard.isDown('ArrowRight') || this.keyboard.isDown('d')) {
+            this.anim.scale.x = Math.abs(this.anim.scale.x);
+            this.x += currSpeed
             moving = true;
         }
 
         if (this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a')) {
             this.anim.scale.x = -Math.abs(this.anim.scale.x);
-            this.x -= 2;
+            this.x -= currSpeed;
             moving = true;
         }
+
+        if (this.keyboard.isDown('ArrowUp') || this.keyboard.isDown('w')) {
+            this.y -= currSpeed;
+            moving = true;
+        }
+
+        if (this.keyboard.isDown('ArrowDown') || this.keyboard.isDown('s')) {
+            this.y += currSpeed;
+            moving = true;
+        }
+
 
         this.currState = moving ? 'walk' : 'idle';
 
         if (this.currState !== this.prevState) {
-        this.anim.textures = this.playerData.animations[this.currState];
-        this.anim.play(); 
-        
-        this.prevState = this.currState;
+            this.anim.textures = this.playerData.animations[this.currState];
+            this.anim.play();
+
+            this.prevState = this.currState;
         }
     }
 }
