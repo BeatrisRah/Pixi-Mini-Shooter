@@ -4,10 +4,12 @@ import AssetLoader from "../core/AssetLoader";
 import { Player } from "../objects/PLayer";
 import { BoundsType } from "../utils/types";
 import { LoadingScene } from "./Loading";
+import { Enemy } from "../objects/Enemy";
 
 
 export class Game extends Container {
     private player!: Player
+    private enemy!: Enemy;
     private bounds!: BoundsType
     private customW: number = window.innerWidth * 0.9
     private customH: number = 600;
@@ -36,6 +38,7 @@ export class Game extends Container {
         this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
 
         this.player = new Player()
+        this.enemy = new Enemy()
 
         myCenter(this.player, tillingSprite)
 
@@ -45,11 +48,12 @@ export class Game extends Container {
             width: tillingSprite.width,
             height: tillingSprite.height,
         }
-        this.addChild(tillingSprite, this.player)
+        this.addChild(tillingSprite, this.player, this.enemy)
     }
 
     public update(){
         this.player.update(this.bounds)
+        this.enemy.update(this.player.x, this.player.y)
     }
 
     

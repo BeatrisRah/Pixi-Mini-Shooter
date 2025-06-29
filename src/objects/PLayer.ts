@@ -17,12 +17,10 @@ export class Player extends Container {
 
     constructor() {
         super()
-
         this.playerData = Assets.get('player');
         this.anim = new AnimatedSprite(this.playerData.animations[this.currState])
         this.animationSetup()
         this.addChild(this.anim)
-
         
     }
 
@@ -94,7 +92,6 @@ export class Player extends Container {
         this.move(bounds)
         this.events()
         this.keyboard.update()
-
         this.shooter.updateProjectiles()
     }
 }
