@@ -1,5 +1,6 @@
 export class Keyboard {
     private keys: Record<string, boolean> = {};
+    private prevKeys: Record<string, boolean> = {};
     constructor() {
         window.addEventListener("keydown", this.onKeyDown);
         window.addEventListener("keyup", this.onKeyUp);
@@ -23,6 +24,15 @@ export class Keyboard {
 
     public anyDown(...keys: string[]): boolean {
         return keys.some((k) => this.isDown(k));
+    }
+    
+    public wasPressed(key: string): boolean {
+        const lower = key.toLowerCase();
+        return this.keys[lower] && !this.prevKeys[lower];
+    }
+
+    public update(): void {
+        this.prevKeys = { ...this.keys };
     }
 
     public destroy(): void {

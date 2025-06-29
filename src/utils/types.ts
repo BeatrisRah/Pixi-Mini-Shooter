@@ -4,3 +4,5 @@ export type BoundsType = {
     width: number,
     height: number,
 }
+
+export type Directons = 'Up' | 'Down' | 'Right' | 'Left'

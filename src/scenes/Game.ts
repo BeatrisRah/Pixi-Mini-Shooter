@@ -49,7 +49,7 @@ export class Game extends Container {
     }
 
     public update(){
-        this.player.move(this.bounds)
+        this.player.update(this.bounds)
     }
 
     
