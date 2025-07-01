@@ -12,10 +12,11 @@ export class Enemy extends Container{
     }
 
     private animationSetUp(){
-        this.anim.tint = 'red'
-        this.anim.scale.set(1.5)
+        this.anim.tint = 'red';
+        this.anim.anchor.set(0.5)
+        this.anim.scale.set(1.5);
         this.anim.animationSpeed = 0.2;
-        this.anim.play()
+        this.anim.play();
         // TODO: Spawn random
     }
 

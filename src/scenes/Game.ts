@@ -5,6 +5,7 @@ import { Player } from "../objects/PLayer";
 import { BoundsType } from "../utils/types";
 import { LoadingScene } from "./Loading";
 import { Enemy } from "../objects/Enemy";
+import { Mouse } from "../core/Mouse";
 
 
 export class Game extends Container {
@@ -13,6 +14,7 @@ export class Game extends Container {
     private bounds!: BoundsType
     private customW: number = window.innerWidth * 0.9
     private customH: number = 600;
+    private mouse: Mouse = new Mouse()
 
     constructor(){
         super();
@@ -35,6 +37,10 @@ export class Game extends Container {
             height: this.customH,
             tileScale:{ x: 1.5, y: 1.5 }
         })
+
+        tillingSprite.eventMode = 'static';
+        tillingSprite.on('pointermove', (e) => this.mouse.mouseMove(e.getLocalPosition(tillingSprite)))
+        tillingSprite.on('pointerout', () => this.mouse.mouseOut())
         this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
 
         this.player = new Player()
@@ -48,12 +54,12 @@ export class Game extends Container {
             width: tillingSprite.width,
             height: tillingSprite.height,
         }
-        this.addChild(tillingSprite, this.player, this.enemy)
+        this.addChild(tillingSprite, this.player, this.enemy, this.mouse)
     }
 
     public update(){
         this.player.update(this.bounds)
-        this.enemy.update(this.player.x, this.player.y)
+        // this.enemy.update(this.player.x, this.player.y)
     }
 
     
