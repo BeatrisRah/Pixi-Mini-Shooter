@@ -29,7 +29,9 @@ export class Enemy extends Container{
             const angle = Math.atan2(dy, dx);
             this.x += Math.cos(angle) * this.speed;
             this.y += Math.sin(angle) * this.speed;
+            
         } else {
+            this.emit('hitPlayer', 25)
             return;
         }
     }

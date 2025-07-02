@@ -44,7 +44,6 @@ export class Game extends Container {
         
         this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
         
-        
         myCenter(this.player, tillingSprite)
         
         this.bounds = {
@@ -56,11 +55,13 @@ export class Game extends Container {
         this.addChild(tillingSprite, this.player, this.enemy, this.mouse)
 
         tillingSprite.on('pointerdown', (e) => this.player.shooter.shoot(e.getLocalPosition(tillingSprite), {x: this.player.x, y: this.player.y}))
+        this.enemy.on('hitPlayer', (damage:number) => this.player.playerHit(damage))
     }
 
     public update(){
         this.player.update(this.bounds)
-        // this.enemy.update(this.player.x, this.player.y)
+        this.enemy.update(this.player.x, this.player.y)
+        
     }
 
     

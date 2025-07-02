@@ -13,6 +13,7 @@ export class Player extends Container {
     private playerData: Spritesheet;
     public shooter: Shooter = new Shooter(this);
     private speed: number = 3;
+    private _health: number = 100;
 
     constructor() {
         super()
@@ -21,6 +22,14 @@ export class Player extends Container {
         this.animationSetup()
         this.addChild(this.anim)
         
+    }
+
+    get health(): number{
+        return this.health;
+    }
+
+    public playerHit(damage: number) {
+        this._health -= damage;
     }
 
     private animationSetup(){
