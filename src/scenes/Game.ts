@@ -1,4 +1,4 @@
-import { Assets, Container, TilingSprite } from "pixi.js";
+import { Container } from "pixi.js";
 import { myCenter } from "../utils/misc";
 import AssetLoader from "../core/AssetLoader";
 import { Player } from "../objects/PLayer";
@@ -6,6 +6,7 @@ import { BoundsType } from "../utils/types";
 import { LoadingScene } from "./Loading";
 import { Enemy } from "../objects/Enemy";
 import { Mouse } from "../core/Mouse";
+import { Background } from "../objects/Background";
 
 
 export class Game extends Container {
@@ -31,16 +32,13 @@ export class Game extends Container {
     public start(){
         this.removeChildren()
 
-        const tillingSprite = new TilingSprite({
-            texture: Assets.get('tiles'),
-            width: this.customW,
-            height: this.customH,
-            tileScale:{ x: 1.5, y: 1.5 }
-        })
+        const tillingSprite = new Background(this.customW, this.customH)
 
         tillingSprite.eventMode = 'static';
         tillingSprite.on('pointermove', (e) => this.mouse.mouseMove(e.getLocalPosition(tillingSprite)))
         tillingSprite.on('pointerout', () => this.mouse.mouseOut())
+
+        
         this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
 
         this.player = new Player()
