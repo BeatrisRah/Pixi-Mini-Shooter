@@ -1,6 +1,6 @@
 import { AnimatedSprite, Assets, Container, Spritesheet } from "pixi.js";
 import { Keyboard } from "../core/Keyboard";
-import { BoundsType, Directons } from "../utils/types";
+import { BoundsType } from "../utils/types";
 import { Shooter } from "./Shooter";
 type PlayerState = 'walk' | 'idle'
 
@@ -11,9 +11,8 @@ export class Player extends Container {
     private currState: PlayerState = 'idle';
     private prevState: PlayerState = 'idle';
     private playerData: Spritesheet;
-    private shooter: Shooter = new Shooter(this);
+    public shooter: Shooter = new Shooter(this);
     private speed: number = 3;
-    private direction: Directons = 'Right';
 
     constructor() {
         super()
@@ -43,26 +42,22 @@ export class Player extends Container {
             this.anim.scale.x = Math.abs(this.anim.scale.x);
             this.x += currSpeed;
             moving = true;
-            this.direction = 'Right';
         }
 
         if (this.keyboard.isDown('ArrowLeft') || this.keyboard.isDown('a')) {
             this.anim.scale.x = -Math.abs(this.anim.scale.x);
             this.x -= currSpeed;
             moving = true;
-            this.direction = 'Left';
         }
 
         if (this.keyboard.isDown('ArrowUp') || this.keyboard.isDown('w')) {
             this.y -= currSpeed;
             moving = true;
-            this.direction = 'Up';
         }
 
         if (this.keyboard.isDown('ArrowDown') || this.keyboard.isDown('s')) {
             this.y += currSpeed;
             moving = true;
-            this.direction = 'Down';
         }
 
         const halfW = this.width / 2;
@@ -82,15 +77,9 @@ export class Player extends Container {
         
     }
 
-    events(){
-        if(this.keyboard.wasPressed('Q')){
-            this.shooter.shoot(this.direction)
-        }
-    }
 
     update(bounds: BoundsType){
         this.move(bounds)
-        this.events()
         this.keyboard.update()
         this.shooter.updateProjectiles()
     }

@@ -33,19 +33,20 @@ export class Game extends Container {
         this.removeChildren()
 
         const tillingSprite = new Background(this.customW, this.customH)
-
+        this.player = new Player()
+        this.enemy = new Enemy()
+        
         tillingSprite.eventMode = 'static';
         tillingSprite.on('pointermove', (e) => this.mouse.mouseMove(e.getLocalPosition(tillingSprite)))
         tillingSprite.on('pointerout', () => this.mouse.mouseOut())
 
         
+        
         this.position.set((window.innerWidth - this.customW) / 2, (window.innerHeight - this.customH) / 2)
-
-        this.player = new Player()
-        this.enemy = new Enemy()
-
+        
+        
         myCenter(this.player, tillingSprite)
-
+        
         this.bounds = {
             x: 0,
             y: 0,
@@ -53,6 +54,8 @@ export class Game extends Container {
             height: tillingSprite.height,
         }
         this.addChild(tillingSprite, this.player, this.enemy, this.mouse)
+
+        tillingSprite.on('pointerdown', (e) => this.player.shooter.shoot(e.getLocalPosition(tillingSprite), {x: this.player.x, y: this.player.y}))
     }
 
     public update(){
